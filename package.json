@@ -2,6 +2,12 @@
   "name": "openrouter-chat",
   "version": "1.0.0",
   "description": "Beautiful OpenRouter chat desktop app with model compare",
+  "license": "MIT",
+  "homepage": "https://github.com/gorarakelyanf/openrouter-chat",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gorarakelyanf/openrouter-chat.git"
+  },
   "main": "electron/main.cjs",
   "scripts": {
     "dev": "vite",
@@ -42,6 +48,7 @@
   "build": {
     "appId": "com.openrouter.chat",
     "productName": "OpenRouter Chat",
+    "artifactName": "OpenRouter-Chat-Setup-${version}.${ext}",
     "directories": {
       "output": "release"
     },
@@ -52,11 +59,21 @@
     "win": {
       "target": "nsis"
     },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "OpenRouter Chat"
+    },
     "mac": {
-      "target": "dmg"
+      "target": "dmg",
+      "artifactName": "OpenRouter-Chat-${version}.${ext}"
     },
     "linux": {
-      "target": "AppImage"
+      "target": "AppImage",
+      "artifactName": "OpenRouter-Chat-${version}.${ext}"
     }
   }
 }

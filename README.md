@@ -1,56 +1,49 @@
 # OpenRouter Chat
 
 A beautiful, minimal desktop chat app for every top LLM, powered by [OpenRouter](https://openrouter.ai).
+One interface. Every model. Side-by-side compare.
 
-- **Every model, one interface** — GPT, Claude, Gemini, Grok, Qwen, GLM, Kimi, DeepSeek, Llama, Mistral.
-- **Modes** — Default, Thinking (high reasoning), Fast (throughput-optimized), Web (with search).
-- **Compare** — Run 2–4 models side-by-side on the same prompt.
-- **Streaming** — Real-time responses with visible reasoning for thinking models.
-- **Local** — Chats and API key live in your browser. No server, no tracking.
-- **Desktop app** — Ships as a native Electron app for Windows, macOS, and Linux.
+## Download
 
----
+**→ [Download for Windows](https://github.com/gorarakelyanf/openrouter-chat/releases/latest)**
 
-## Quick start
+Download `OpenRouter-Chat-Setup.exe`, double-click, done. No admin required.
+
+> Windows SmartScreen may warn on first launch because the installer isn't code-signed (signing costs money). Click **More info → Run anyway**.
+
+## What's inside
+
+- **Every top model, one interface** — GPT-5, GLM, Kimi, Gemini 3 Flash, Qwen Max, Grok.
+- **Live streaming** — responses stream in real time with visible reasoning for thinking models.
+- **Compare mode** — run the same prompt across 2–4 models side-by-side, all streaming at once.
+- **Local-first** — chats and your API key live only in your app's storage. No server. No tracking.
+- **Fast** — memoized markdown, shallow scroll preservation, smooth at 100+ messages.
+
+## Setup (30 seconds)
+
+1. Grab a free key at [openrouter.ai/keys](https://openrouter.ai/keys)
+2. Open the app → click **Settings** (bottom-left)
+3. Paste your key, hit **Save**
+4. Pick a model from the top bar and start typing
+
+That's it.
+
+## Building from source
 
 ```bash
+git clone https://github.com/gorarakelyanf/openrouter-chat.git
+cd openrouter-chat
 npm install
-npm run dev         # web dev server on localhost:5173
-npm run dev:electron  # dev with desktop window
+npm run dev:electron       # run in dev mode
+npm run dist:win           # build Windows installer → ./release/
+npm run dist:mac           # macOS .dmg
+npm run dist:linux         # AppImage
 ```
 
-Open Settings (bottom-left) and paste your key from https://openrouter.ai/keys.
+## Stack
 
-## Build the desktop app
+React 18 · TypeScript · Vite · Tailwind · Electron · OpenRouter SSE streaming
 
-```bash
-npm run dist         # current OS
-npm run dist:win     # Windows .exe installer
-npm run dist:mac     # macOS .dmg
-npm run dist:linux   # AppImage
-```
+## License
 
-Installers land in `release/`.
-
-## How it works
-
-- `src/lib/openrouter.ts` — thin streaming client for `POST /v1/chat/completions` (SSE) and `GET /v1/models`.
-- `src/lib/models.ts` — curated featured list + per-brand colors + reasoning-capability heuristic.
-- `src/lib/storage.ts` — `localStorage` persistence for chats and settings.
-- `src/App.tsx` — the whole app: sidebar, chat view, compare view, settings.
-- `electron/main.cjs` — Electron shell.
-
-## Modes
-
-| Mode     | What it does                                                                 |
-|----------|------------------------------------------------------------------------------|
-| Default  | Normal completion                                                            |
-| Thinking | `reasoning: { effort: "high" }` — visible thinking block for capable models  |
-| Fast     | `reasoning: { exclude: true }` + `provider: { sort: "throughput" }`          |
-| Web      | Attaches the OpenRouter `web` plugin for live search                         |
-
-## Notes
-
-- The featured model list is a friendly default. The full OpenRouter catalog loads dynamically, so new releases appear automatically.
-- Unsupported modes on a given model are hidden or disabled.
-- Your API key is stored only in `localStorage`.
+MIT
